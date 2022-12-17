@@ -3,12 +3,6 @@ class P (object):
 		self.x = x
 		self.y = y
 	
-	def __mod__(self, q):
-		p = P(self.x, self.y)
-		for _ in range(q % 4):
-			p.x, p.y = (-p.y, p.x)
-		return p
-	
 	def inf_norm(self):
 		return max(abs(self.x), abs(self.y))
 	
@@ -30,32 +24,11 @@ class P (object):
 	def __repr__(self):
 		return 'P({}, {})'.format(self.x, self.y)
 
-
 vec = {
 	'R': P( 1,  0),
 	'U': P( 0,  1),
 	'L': P(-1,  0),
 	'D': P( 0, -1)
-}
-
-# Relative T movement when H relatively moves (1, 0)
-map = {
-	P(-1, -1): P( 1,  1),
-	P( 0, -1): P( 0,  0),
-	P( 1, -1): P( 0,  0),
-	P(-1,  0): P( 1,  0),
-	P( 0,  0): P( 0,  0),
-	P( 1,  0): P( 0,  0),
-	P(-1,  1): P( 1, -1),
-	P( 0,  1): P( 0,  0),
-	P( 1,  1): P( 0,  0),
-}
-
-rot = {
-	'R': 0,
-	'U': 1,
-	'L': 2,
-	'D': 3
 }
 
 def trace_tail(amount):
