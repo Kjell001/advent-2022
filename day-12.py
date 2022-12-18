@@ -3,8 +3,8 @@ import console
 import time
 
 SHOW_GRID = True
-SHOW_STEP = 100
-SHOW_WAIT = 0.2
+SHOW_STEP = 50
+SHOW_WAIT = 0.1
 
 DELTAS = ((-1, 0), (1, 0), (0, -1), (0, 1))
 
@@ -24,7 +24,6 @@ def read_grid():
 				grid[(x, y)] = {
 					'dist': BIG,
 					'height': ord(char),
-					'candidate': False,
 					'checked': False
 					}
 	dim = (x + 1, y + 1)
@@ -39,10 +38,9 @@ def print_grid(grid, dim, current):
 	for y in range(dim_y):
 		for x in range(dim_x):
 			coord = grid[(x, y)]
-			col = (1.0, 1.0, 1.0)
 			if   (x, y) == current : col = (0.8, 0.0, 0.0)
 			elif coord['checked']  : col = (0.5, 0.5, 0.5)
-			elif coord['candidate']: col = (0.0, 0.8, 0.0)
+			else                   : col = (1.0, 1.0, 1.0)
 			console.set_color(*col)
 			print(chr(coord['height']), end = '')
 		print()
@@ -51,9 +49,7 @@ def print_grid(grid, dim, current):
 
 # Search for path using Dijkstra's
 def find_path(grid, dim, start, func, inverse = False):
-	unchecked = lambda: (
-		(k, v) for k, v in grid.items() if v['candidate'] and not v['checked']
-		)
+	unchecked = lambda: ((k, v) for k, v in grid.items() if not v['checked'])
 	grid[start]['dist'] = 0
 	i = 0
 	p = start
@@ -76,7 +72,6 @@ def find_path(grid, dim, start, func, inverse = False):
 			else:
 				if nb['checked'] or coord['height'] - 1 > nb['height']:
 					continue
-			nb['candidate'] = True
 			# Update distance
 			if nb['dist'] > coord['dist'] + 1:
 				nb['dist'] = coord['dist'] + 1
