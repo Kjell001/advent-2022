@@ -1,5 +1,5 @@
 total_calories = [0,]
-with open('input-1.txt', 'r') as file:
+with open('input-01.txt', 'r') as file:
 	for line in file:
 		if line.strip():
 			total_calories[-1] += int(line)

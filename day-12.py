@@ -3,7 +3,7 @@ import console
 import time
 
 SHOW_GRID = True
-SHOW_STEP = 50
+SHOW_STEP = 1
 SHOW_WAIT = 0.1
 
 DELTAS = ((-1, 0), (1, 0), (0, -1), (0, 1))
@@ -75,13 +75,12 @@ def find_path(grid, dim, start, func, inverse = False):
 			# Update distance
 			if nb['dist'] > coord['dist'] + 1:
 				nb['dist'] = coord['dist'] + 1
+		# Next coordinate
+		p, _ = min(unchecked(), key = lambda x: x[1]['dist'])
 		# Print progress
 		i += 1
 		if not i % SHOW_STEP:
 			print_grid(grid, dim, p)
-		# Next coordinate
-		p, _ = min(unchecked(), key = lambda x: x[1]['dist'])
-	print_grid(grid, dim, p) 
 
 # Shortest path from source to target
 grid, dim, source, target = read_grid()

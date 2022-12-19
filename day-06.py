@@ -1,4 +1,4 @@
-with open('input-6.txt', 'r') as file:
+with open('input-06.txt', 'r') as file:
 	stream = file.readline()
 
 N1 = 4

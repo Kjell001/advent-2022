@@ -1,6 +1,6 @@
 # Build file tree
 tree = {'parent': None, 'dirs': {}, 'files': []}
-with open('input-7.txt', 'r') as file:
+with open('input-07.txt', 'r') as file:
 	for line in file:
 		arg = line.strip().split()
 		if   arg[1] == 'ls':

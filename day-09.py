@@ -34,7 +34,7 @@ vec = {
 def trace_tail(amount):
 	knots = [P(0, 0) for _ in range(amount)]
 	trace = set()
-	with open('input-9.txt', 'r') as file:
+	with open('input-09.txt', 'r') as file:
 		for line in file:
 			arg = line.strip().split()
 			dir = arg[0]

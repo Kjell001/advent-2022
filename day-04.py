@@ -2,7 +2,7 @@ import re
 
 contain_count = 0
 overlap_count = 0
-with open('input-4.txt', 'r') as file:
+with open('input-04.txt', 'r') as file:
 	for line in file:
 		spec = [int(s) for s in re.findall(r'\d+', line.strip())]
 		if (spec[0] >= spec[2] and spec[1] <= spec[3]) or (spec[0] <= spec[2] and spec[1] >= spec[3]):

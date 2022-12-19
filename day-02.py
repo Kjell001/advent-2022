@@ -12,7 +12,7 @@ map2 = {
 
 total_score1 = 0
 total_score2 = 0
-with open('input-2.txt', 'r') as file:
+with open('input-02.txt', 'r') as file:
 	for line in file:
 		p1, p2 = tuple(line.strip().split())
 		total_score1 += map1[p1][p2]

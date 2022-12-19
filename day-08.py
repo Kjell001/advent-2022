@@ -1,4 +1,4 @@
-with open('input-8.txt', 'r') as file:
+with open('input-08.txt', 'r') as file:
 	raw = file.readlines()
 forest = [[int(i) for i in row.strip()] for row in raw]
 

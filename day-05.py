@@ -1,7 +1,7 @@
 import re
 import copy
 
-with open('input-5.txt', 'r') as file:
+with open('input-05.txt', 'r') as file:
 	# Read stacks
 	stacks = None
 	for line in file:
