@@ -3,8 +3,8 @@ import console
 import time
 
 SHOW_GRID = True
-SHOW_STEP = 1
-SHOW_WAIT = 0.1
+SHOW_STEP = 100
+SHOW_WAIT = 0.2
 
 DELTAS = ((-1, 0), (1, 0), (0, -1), (0, 1))
 
@@ -30,7 +30,7 @@ def read_grid():
 	return grid, dim, source, target
 
 # Show grid and path finding progress
-def print_grid(grid, dim, current):
+def print_grid(grid, dim, start, current):
 	if not SHOW_GRID:
 		return
 	console.clear()
@@ -39,6 +39,7 @@ def print_grid(grid, dim, current):
 		for x in range(dim_x):
 			coord = grid[(x, y)]
 			if   (x, y) == current : col = (0.8, 0.0, 0.0)
+			elif (x, y) == start   : col = (0.0, 0.8, 0.0)
 			elif coord['checked']  : col = (0.5, 0.5, 0.5)
 			else                   : col = (1.0, 1.0, 1.0)
 			console.set_color(*col)
@@ -48,7 +49,7 @@ def print_grid(grid, dim, current):
 	console.set_color(1, 1, 1)
 
 # Search for path using Dijkstra's
-def find_path(grid, dim, start, func, inverse = False):
+def find_path(grid, dim, start, func):
 	unchecked = lambda: ((k, v) for k, v in grid.items() if not v['checked'])
 	grid[start]['dist'] = 0
 	i = 0
@@ -57,6 +58,7 @@ def find_path(grid, dim, start, func, inverse = False):
 		# Assess stopping condition
 		coord = grid[p]
 		if func(p, coord):
+			print_grid(grid, dim, start, p)
 			return int(grid[p]['dist'])
 		coord['checked'] = True
 		# Iterate over neighbours
@@ -66,12 +68,8 @@ def find_path(grid, dim, start, func, inverse = False):
 			if q not in grid:
 				continue
 			nb = grid[q]
-			if not inverse:
-				if nb['checked'] or coord['height'] + 1 < nb['height']:
-					continue
-			else:
-				if nb['checked'] or coord['height'] - 1 > nb['height']:
-					continue
+			if nb['checked'] or coord['height'] - 1 > nb['height']:
+				continue
 			# Update distance
 			if nb['dist'] > coord['dist'] + 1:
 				nb['dist'] = coord['dist'] + 1
@@ -80,15 +78,15 @@ def find_path(grid, dim, start, func, inverse = False):
 		# Print progress
 		i += 1
 		if not i % SHOW_STEP:
-			print_grid(grid, dim, p)
+			print_grid(grid, dim, start, p)
 
-# Shortest path from source to target
+# Shortest path from target to source
 grid, dim, source, target = read_grid()
-success_1 = lambda x, y: x == target
-print('Answer 1:', find_path(grid, dim, source, success_1))
+success_1 = lambda x, y: x == source
+print('Answer 1:', find_path(grid, dim, target, success_1))
 
 # Shortest path from target to any 'a'
 grid, dim, source, target = read_grid()
 success_2 = lambda x, y: y['height'] == ord('a')
-print('Answer 2:', find_path(grid, dim, target, success_2, True))
+print('Answer 2:', find_path(grid, dim, target, success_2))
 
