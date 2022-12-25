@@ -8,9 +8,6 @@ class P (object):
 	def __add__(self, other):
 		return P(self.x + other.x, self.y + other.y)
 	
-	def __sub__(self, other):
-		return P(self.x - other.x, self.y - other.y)
-	
 	def __mod__(self, other):
 		return abs(self.x - other.x) + abs(self.y - other.y)
 	
@@ -62,15 +59,12 @@ def find_beacon(dim_max, freq):
 				# Set up for next iteration
 				coord += delta
 
-
 PROBE_Y = 10
 FREQ = 4000000
 DIM_MAX = 20
 
 PROBE_Y = 2000000
 DIM_MAX = 4000000
-
-
 
 print('Answer 1:', count_empty(PROBE_Y))
 print('Answer 2:', find_beacon(DIM_MAX, FREQ))
