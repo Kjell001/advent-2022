@@ -13,6 +13,7 @@ def get_graph():
 			}
 	return graph
 
+# Returns cost and yield for all non-zero flow valves given a history
 def next_node(graph, chain, time_left):
 	visited = set()
 	check = set([chain[-1]])
@@ -46,7 +47,7 @@ def optimal_path(graph, start, time):
 		'time_left': time
 	}]
 	best_path = None
-	# BFS
+	# Search all
 	while progress:
 		progress_next = []
 		for path in progress:
@@ -67,8 +68,5 @@ def optimal_path(graph, start, time):
 	return best_path
 
 cave = get_graph()
-
-#[print(k,v) for k,v in next_node(cave, ['AA'], 30).items()]
-
-[print(k, v) for k, v in optimal_path(cave, 'AA', 30).items()]
+print('Answer 1:', optimal_path(cave, 'AA', 30)['total_yield'])
 
